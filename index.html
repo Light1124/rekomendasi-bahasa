@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Bahasa Pemrograman | Ultimate Edition</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variabel Tema Terang & Gelap */
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --accent-color: #ffc107;
+            --text-light: #666666;
+            --border-color: #eeeeee;
+            --input-bg: #ffffff;
+            --table-bg: #f8f9fa;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --info-box: #e9f5ff;
+            --info-border: #b8daff;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --text-light: #aaaaaa;
+            --border-color: #333333;
+            --input-bg: #2c2c2c;
+            --table-bg: #2a2a2a;
+            --glass-bg: rgba(0, 0, 0, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --info-box: #1a2a3a;
+            --info-border: #004085;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0; padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header Animasi */
+        .header-wrapper {
+            position: relative;
+            background: linear-gradient(-45deg, #007bff, #00d2ff, #3a7bd5, #0056b3);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        header {
+            text-align: center; padding: 80px 20px;
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border); color: white;
+        }
+        header h1 { font-size: 3.5rem; font-weight: 700; margin: 0 0 20px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        header p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 40px auto; opacity: 0.9; }
+        .btn-main {
+            background: var(--accent-color); color: #333; border: none; padding: 15px 40px;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Katalog Bahasa */
+        .section-title { text-align: center; font-size: 2.3rem; margin-bottom: 20px; color: var(--text-color); font-weight: 700; }
+        .section-desc { text-align: center; color: var(--text-light); margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 80px; }
+        .card {
+            background: var(--card-bg); border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;
+            overflow: hidden; border-bottom: 5px solid transparent;
+        }
+        .card:hover { transform: translateY(-10px); border-bottom: 5px solid #007bff; }
+        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card-content { padding: 30px; }
+        .card h3 { font-size: 1.8rem; margin: 0 0 15px 0; color: var(--text-color); display: flex; align-items: center; gap: 10px; }
+        .card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 15px; }
+        .feature-list { list-style: none; padding: 0; margin: 0; color: var(--text-color); font-size: 0.9rem; }
+        .feature-list li { margin-bottom: 8px; }
+        .feature-list i { color: #28a745; margin-right: 8px; }
+
+        /* Fitur Perbandingan */
+        .compare-section { padding: 60px 0; text-align: center; background: var(--card-bg); border-radius: 30px; margin-bottom: 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .compare-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; align-items: center; }
+        .compare-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; background: var(--bg-color); border-radius: 10px; overflow: hidden; }
+        .compare-table th, .compare-table td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        .compare-table th { background: var(--table-bg); font-weight: 600; width: 33%; }
+
+        /* Kuis di Bawah */
+        .quiz-section { background: linear-gradient(135deg, #1e3c72, #2a5298); padding: 80px 20px; border-radius: 30px; margin-bottom: 60px; color: white; }
+        .quiz-box { background: var(--bg-color); color: var(--text-color); padding: 50px; border-radius: 20px; text-align: center; max-width: 850px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .progress-container { width: 100%; background: var(--border-color); border-radius: 10px; margin-bottom: 30px; height: 8px; overflow: hidden; }
+        .progress-bar { height: 100%; background: #007bff; width: 50%; transition: width 0.4s ease; }
+        .quiz-step { display: none; animation: fadeIn 0.4s ease; }
+        .quiz-step.active { display: block; }
+        .quiz-input {
+            width: 100%; max-width: 500px; padding: 15px; background: var(--input-bg); color: var(--text-color);
+            border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem;
+            font-family: 'Poppins', sans-serif; margin-bottom: 20px; transition: 0.3s;
+        }
+        .quiz-input:focus { outline: none; border-color: #007bff; box-shadow: 0 0 10px rgba(0,123,255,0.2); }
+        .btn-quiz { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-quiz:hover { background: #0056b3; transform: translateY(-2px); }
+        
+        /* Hasil & Tabs */
+        #loading-state { display: none; padding: 40px 0; }
+        .spinner { width: 50px; height: 50px; border: 5px solid var(--border-color); border-top-color: #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #result-container { display: none; margin-top: 35px; background: var(--card-bg); border-radius: 16px; padding: 30px; text-align: left; border-top: 5px solid #28a745; }
+        .btn-copy { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; cursor: pointer; transition: 0.2s; font-weight: 600; margin: 0; }
+        .btn-copy:hover { background: #218838; }
+
+        .tab-buttons { display: flex; gap: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { background: var(--input-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: #007bff; color: white; border-color: #007bff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        /* Gaya Variasi Kode (Tombol Filter Mini) */
+        .kode-filters { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .btn-kode-var {
+            background: var(--input-bg); color: var(--text-color); border: 1px solid var(--border-color);
+            padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-kode-var:hover { background: var(--border-color); }
+        .btn-kode-var.active { background: #e8f5e9; color: #2e7d32; border-color: #28a745; }
+        body.dark-mode .btn-kode-var.active { background: #1a3a22; color: #4ade80; border-color: #4ade80; }
+
+        pre { background: #1e1e1e; color: #569cd6; padding: 20px; border-radius: 10px; overflow-x: auto; font-family: 'Fira Code', monospace; line-height: 1.5; font-size: 0.95rem;}
+        
+        /* Detail Section Styling */
+        .detail-box { background: var(--info-box); border: 1px solid var(--info-border); padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .detail-box h4 { margin: 0 0 10px 0; color: #0056b3; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        body.dark-mode .detail-box h4 { color: #66b0ff; }
+        .detail-box p { margin: 0; color: var(--text-color); font-size: 0.95rem; line-height: 1.7; }
+        
+        .link-list { padding: 0; list-style: none; }
+        .link-list li { margin-bottom: 12px; }
+        .link-list a { display: block; padding: 15px; background: var(--table-bg); color: #007bff; text-decoration: none; font-weight: 600; border-radius: 8px; border-left: 4px solid #007bff; transition: 0.2s; }
+        .link-list a:hover { background: #e9ecef; transform: translateX(5px); }
+
+        /* Tema Toggle */
+        .theme-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px;
+            background: var(--text-color); color: var(--bg-color); border: none;
+            border-radius: 50%; font-size: 1.5rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn"><i class="fas fa-moon"></i></button>
+
+    <div class="header-wrapper">
+        <header>
+            <div class="container reveal">
+                <h1><i class="fas fa-code"></i> Jelajah Coding</h1>
+                <p>Mulai perjalanan programming Anda. Kenali 3 bahasa paling populer di dunia industri saat ini, bandingkan fiturnya, dan ikuti kuis AI cerdas kami di bawah.</p>
+                <button class="btn-main" onclick="document.getElementById('katalog').scrollIntoView({behavior:'smooth'})">Lihat 3 Bahasa Terpopuler <i class="fas fa-arrow-down"></i></button>
+            </div>
+        </header>
+    </div>
+
+    <!-- BAGIAN 1: Katalog 3 Bahasa Populer -->
+    <div class="container reveal" id="katalog">
+        <h2 class="section-title">🌟 3 Bahasa Pemrograman Raksasa</h2>
+        <p class="section-desc">Bahasa-bahasa ini menguasai pasar global. Dari membangun kecerdasan buatan, menggerakkan seluruh website di internet, hingga sistem perbankan kelas dunia.</p>
+        
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=80" alt="Python Data Science">
+                <div class="card-content">
+                    <h3><i class="fab fa-python" style="color:#3776AB;"></i> Python</h3>
+                    <p>Sangat ramah untuk pemula karena sintaksnya mirip bahasa manusia (Bahasa Inggris). Merupakan penguasa mutlak di bidang Data Science, Kecerdasan Buatan (AI), dan Machine Learning.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Dipakai oleh: Google, NASA, Netflix</li>
+                        <li><i class="fas fa-check-circle"></i> Sangat mudah dibaca & dipelajari</li>
+                        <li><i class="fas fa-check-circle"></i> Library super lengkap (Pandas, TensorFlow)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1627398225258-14f043d1438f?w=600&q=80" alt="JavaScript Web Dev">
+                <div class="card-content">
+                    <h3><i class="fab fa-js-square" style="color:#F7DF1E;"></i> JavaScript</h3>
+                    <p>Satu-satunya bahasa yang berjalan langsung di browser pengguna. Tanpa JS, website hanya akan berupa teks kaku tanpa animasi, pop-up, atau interaksi real-time.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Dipakai oleh: Facebook, YouTube, Amazon</li>
+                        <li><i class="fas fa-check-circle"></i> Wajib dikuasai untuk Frontend Web</li>
+                        <li><i class="fas fa-check-circle"></i> Ekosistem raksasa (React, Vue, Node.js)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80" alt="Java Enterprise">
+                <div class="card-content">
+                    <h3><i class="fab fa-java" style="color:#007396;"></i> Java</h3>
+                    <p>Moto "Tulis sekali, jalankan di mana saja" membuat Java menjadi tulang punggung server perusahaan besar. Sangat ketat pada aturan, membuatnya super aman dan minim bug tak terduga.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Dipakai oleh: Bank Global, Android, Minecraft</li>
+                        <li><i class="fas fa-check-circle"></i> Object-Oriented murni & terstruktur</li>
+                        <li><i class="fas fa-check-circle"></i> Performa tinggi (Kompilasi ke Bytecode)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BAGIAN 2: Fitur Perbandingan -->
+    <div class="container compare-section reveal">
+        <h2 class="section-title"><i class="fas fa-balance-scale"></i> Adu Fitur Teknologi</h2>
+        <p class="section-desc" style="margin-bottom: 30px;">Pilih dua bahasa di bawah ini untuk melihat perbandingan head-to-head.</p>
+        
+        <div class="compare-controls">
+            <select id="bhs1" class="quiz-input" style="max-width:250px; margin:0;">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java" selected>Java</option>
+            </select>
+            <strong style="color:var(--text-color); font-size:1.2rem; background:var(--card-bg); padding:10px; border-radius:50%;">VS</strong>
+            <select id="bhs2" class="quiz-input" style="max-width:250px; margin:0;">
+                <option value="python">Python</option>
+                <option value="javascript" selected>JavaScript</option>
+                <option value="java">Java</option>
+            </select>
+            <button class="btn-quiz" onclick="bandingkanBahasa()"><i class="fas fa-sync-alt"></i> Bandingkan</button>
+        </div>
+
+        <div style="overflow-x: auto; padding: 0 20px;">
+            <table class="compare-table" id="tabel-banding">
+                <tbody>
+                    <tr>
+                        <th>Parameter</th>
+                        <th id="th-bhs1" style="color:#007bff; font-size:1.1rem;"><i class="fab fa-java"></i> Java</th>
+                        <th id="th-bhs2" style="color:#28a745; font-size:1.1rem;"><i class="fab fa-js-square"></i> JavaScript</th>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-brain"></i> Kurva Belajar</td>
+                        <td id="td-sulit-1">⭐⭐⭐ (Menengah)</td>
+                        <td id="td-sulit-2">⭐⭐ (Mudah dipahami)</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-rocket"></i> Keunggulan Utama</td>
+                        <td id="td-guna-1">Struktur ketat, cocok untuk tim raksasa & keamanan Bank</td>
+                        <td id="td-guna-2">Interaktivitas Frontend & fleksibilitas Full-Stack (Node.js)</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-tachometer-alt"></i> Kecepatan Eksekusi</td>
+                        <td id="td-cepat-1">Tinggi (Kompilasi JIT)</td>
+                        <td id="td-cepat-2">Sangat Cepat (V8 Engine)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- BAGIAN 3: Kuis AI Analisis Mendalam -->
+    <div class="quiz-section reveal" id="kuis-area">
+        <div class="container">
+            <div class="quiz-box">
+                <h2><i class="fas fa-robot" style="color:#007bff;"></i> Analisis Karir Coding Mendalam</h2>
+                <p>Jawab pertanyaan ini, dan biarkan sistem kami membuatkan laporan rekomendasi yang sangat detail khusus untuk Anda.</p>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <!-- Kuis Step 1 -->
+                <div id="step-1" class="quiz-step active">
+                    <h3 style="color:var(--text-color);">1. Jika Anda memimpin sebuah tim, proyek apa yang akan Anda buat?</h3>
+                    <select id="jawaban1" class="quiz-input">
+                        <option value="">-- Pilih Proyek Impian --</option>
+                        <option value="game">🎮 Membuat Game AAA dengan grafis 3D (Level PlayStation/PC)</option>
+                        <option value="cloud">☁️ Membangun sistem Cloud & Microservices skala besar</option>
+                        <option value="ios">📱 Membuat aplikasi Premium eksklusif untuk ekosistem Apple</option>
+                        <option value="aman">🛡️ Mengembangkan Sistem Operasi / Web3 yang anti-hacker</option>
+                    </select>
+                    <br>
+                    <button class="btn-quiz" onclick="lanjutKeStep2()">Selanjutnya <i class="fas fa-arrow-right"></i></button>
+                    <p id="error-step-1" style="color:#dc3545; display:none; margin-top:10px;">Pilih proyek impian Anda terlebih dahulu!</p>
+                </div>
+
+                <!-- Kuis Step 2 -->
+                <div id="step-2" class="quiz-step">
+                    <h3 style="color:var(--text-color);">2. Sebagai seorang developer, apa prioritas utama Anda?</h3>
+                    <select id="jawaban2" class="quiz-input">
+                        <option value="">-- Pilih Prioritas --</option>
+                        <option value="kontrol">Saya butuh kendali penuh pada Hardware dan Memori (Hardcore)</option>
+                        <option value="efisien">Saya butuh sintaks modern, kompilasi cepat, dan efisien</option>
+                    </select>
+                    <br>
+                    <button class="btn-quiz" style="background:#6c757d; margin-right:10px;" onclick="kembaliKeStep1()"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <button class="btn-quiz" onclick="mulaiAnalisisAI()"><i class="fas fa-magic"></i> Hasilkan Laporan Analisis</button>
+                    <p id="error-step-2" style="color:#dc3545; display:none; margin-top:10px;">Pilih prioritas Anda terlebih dahulu!</p>
+                </div>
+
+                <!-- Loading AI -->
+                <div id="loading-state">
+                    <div class="spinner"></div>
+                    <h3 style="color:var(--text-color);">Menganalisis Arsitektur & Peluang Industri...</h3>
+                    <p style="color:var(--text-light);">Menyusun laporan komprehensif berdasarkan input Anda.</p>
+                </div>
+
+                <!-- Hasil Kuis: Laporan Kompleks -->
+                <div id="result-container">
+                    <span style="display:inline-block; background:#e8f5e9; color:#2e7d32; padding:5px 15px; border-radius:20px; font-size:0.85rem; font-weight:600; margin-bottom:15px;"><i class="fas fa-chart-bar"></i> Laporan Analisis Selesai</span>
+                    
+                    <!-- Judul Hasil & Tombol Aksi Kanan -->
+                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 25px; align-items: center;">
+                        <h3 id="result-title" style="margin:0; font-size:2rem;"></h3>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-quiz" style="background:#6c757d; padding: 10px 20px; font-size: 0.95rem; margin:0; border-radius: 8px;" onclick="resetKuis()"><i class="fas fa-redo-alt"></i> Coba Lagi</button>
+                            <button class="btn-copy" onclick="salinHasil()"><i class="fas fa-share-nodes"></i> Bagikan</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Pilihan -->
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="bukaTab(event, 'tab-penjelasan')"><i class="fas fa-file-alt"></i> Laporan Detail</button>
+                        <button class="tab-btn" onclick="bukaTab(event, 'tab-kode')"><i class="fas fa-laptop-code"></i> Uji Coba Kode</button>
+                        <button class="tab-btn" onclick="bukaTab(event, 'tab-link')"><i class="fas fa-graduation-cap"></i> Sumber Belajar</button>
+                    </div>
+
+                    <!-- TAB 1: PENJELASAN KOMPLEKS -->
+                    <div id="tab-penjelasan" class="tab-content active">
+                        <div class="detail-box">
+                            <h4><i class="fas fa-info-circle"></i> Penjelasan Dasar</h4>
+                            <p id="isi-penjelasan"></p>
+                        </div>
+                        <div class="detail-box">
+                            <h4><i class="fas fa-bullseye"></i> Tujuan & Ranah Utama</h4>
+                            <p id="isi-tujuan"></p>
+                        </div>
+                        <div class="detail-box">
+                            <h4><i class="fas fa-lightbulb"></i> Saran Penggunaan (Do's & Don'ts)</h4>
+                            <p id="isi-saran"></p>
+                        </div>
+                        <div class="detail-box" style="background-color: rgba(40, 167, 69, 0.1); border-color: #c3e6cb;">
+                            <h4 style="color: #155724;"><i class="fas fa-chart-line"></i> Prospek Karir & Industri</h4>
+                            <p id="isi-prospek"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- TAB 2: KODE DENGAN VARIASI (BARU) -->
+                    <div id="tab-kode" class="tab-content">
+                        <p style="color:var(--text-light); font-size:0.95rem; margin-bottom:15px;">Pelajari berbagai konsep fitur dari bahasa ini dengan memilih level di bawah:</p>
+                        
+                        <!-- Area Tombol Variasi Kode -->
+                        <div class="kode-filters" id="kode-buttons-area">
+                            <!-- Tombol akan di-generate oleh JS -->
+                        </div>
+
+                        <pre><code id="isi-kode"></code></pre>
+                    </div>
+                    
+                    <!-- TAB 3: LINK -->
+                    <div id="tab-link" class="tab-content">
+                        <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:10px;">Kami mengumpulkan referensi resmi dan gratis terbaik untuk Anda memulai:</p>
+                        <ul id="isi-link" class="link-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fitur Dark Mode
+        function toggleTheme() {
+            const body = document.body;
+            const btnIcon = document.querySelector("#themeBtn i");
+            body.classList.toggle("dark-mode");
+            if (body.classList.contains("dark-mode")) { btnIcon.className = "fas fa-sun"; } 
+            else { btnIcon.className = "fas fa-moon"; }
+        }
+
+        // Animasi Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Data Perbandingan Bahasa (Katalog)
+        const dbBanding = {
+            java: { nama: "Java", icon: "fab fa-java", sulit: "⭐⭐⭐ (Menengah)", guna: "Backend Enterprise, Bank, Android Asli", performa: "Tinggi (Kompilasi JIT)" },
+            javascript: { nama: "JavaScript", icon: "fab fa-js-square", sulit: "⭐⭐ (Mudah)", guna: "Interaksi Website, Web App (React)", performa: "Sangat Cepat (V8 Browser)" },
+            python: { nama: "Python", icon: "fab fa-python", sulit: "⭐ (Sangat Mudah)", guna: "Kecerdasan Buatan, Olah Data", performa: "Sedang (Interpreter Script)" }
+        };
+
+        function bandingkanBahasa() {
+            const b1 = document.getElementById("bhs1").value;
+            const b2 = document.getElementById("bhs2").value;
+            
+            document.getElementById("th-bhs1").innerHTML = `<i class="${dbBanding[b1].icon}"></i> ${dbBanding[b1].nama}`;
+            document.getElementById("td-sulit-1").innerText = dbBanding[b1].sulit;
+            document.getElementById("td-guna-1").innerText = dbBanding[b1].guna;
+            document.getElementById("td-cepat-1").innerText = dbBanding[b1].performa;
+
+            document.getElementById("th-bhs2").innerHTML = `<i class="${dbBanding[b2].icon}"></i> ${dbBanding[b2].nama}`;
+            document.getElementById("td-sulit-2").innerText = dbBanding[b2].sulit;
+            document.getElementById("td-guna-2").innerText = dbBanding[b2].guna;
+            document.getElementById("td-cepat-2").innerText = dbBanding[b2].performa;
+        }
+
+        // Logika Kuis AI
+        function lanjutKeStep2() {
+            if (!document.getElementById("jawaban1").value) { document.getElementById("error-step-1").style.display = "block"; return; }
+            document.getElementById("error-step-1").style.display = "none";
+            document.getElementById("step-1").classList.remove("active");
+            document.getElementById("step-2").classList.add("active");
+            document.getElementById("progress-bar").style.width = "100%";
+        }
+
+        function kembaliKeStep1() {
+            document.getElementById("step-2").classList.remove("active");
+            document.getElementById("step-1").classList.add("active");
+            document.getElementById("progress-bar").style.width = "50%";
+        }
+
+        function resetKuis() {
+            document.getElementById("result-container").style.display = "none";
+            document.getElementById("step-2").classList.remove("active");
+            document.getElementById("step-1").classList.add("active");
+            
+            document.getElementById("jawaban1").value = "";
+            document.getElementById("jawaban2").value = "";
+            document.getElementById("progress-bar").style.width = "50%";
+            
+            document.getElementById("error-step-1").style.display = "none";
+            document.getElementById("error-step-2").style.display = "none";
+            
+            document.getElementById("kuis-area").scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // DATA KOMPLEKS UNTUK KUIS & VARIASI KODE
+        const dataKuis = {
+            game: { 
+                judul: "C++ (C-Plus-Plus)", icon: "fas fa-gamepad", 
+                penjelasan: "C++ adalah bahasa tingkat menengah yang berorientasi objek. Diciptakan sebagai perluasan dari bahasa C, C++ memberikan akses dan kontrol langsung ke hardware dan memori (RAM), menjadikannya bahasa dengan performa yang sangat brutal dan cepat.", 
+                tujuan: "Secara industri, C++ adalah raja dalam pembuatan Game Engine (seperti Unreal Engine), Sistem Operasi, Browser, dan sistem yang membutuhkan latensi ultra-rendah.",
+                saran: "<strong>DO:</strong> Gunakan saat performa adalah segalanya (Game 3D, Trading System).<br><strong>DON'T:</strong> Jangan gunakan C++ untuk membuat aplikasi web biasa; akan memakan waktu terlalu lama.",
+                prospek: "Sangat menjanjikan namun niche. Perusahaan AAA Gaming bersedia membayar mahal untuk C++ Engineer yang handal karena kurva belajarnya yang sangat curam.",
+                kodeList: [
+                    {
+                        nama: "1. Dasar (Input/Output)",
+                        kode: `<span style="color:#6a9955;">// Program C++ Dasar: Menampilkan Teks ke Layar</span>
+<span style="color:#c586c0;">#include</span> <span style="color:#ce9178;">&lt;iostream&gt;</span>
+<span style="color:#569cd6;">using</span> <span style="color:#569cd6;">namespace</span> <span style="color:#4ec9b0;">std</span>;
+
+<span style="color:#569cd6;">int</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#4ec9b0;">cout</span> << <span style="color:#ce9178;">"Halo Game Developer! Memulai inisialisasi mesin 3D..."</span> << <span style="color:#4ec9b0;">endl</span>;
+    <span style="color:#c586c0;">return</span> <span style="color:#b5cea8;">0</span>;
+}`
+                    },
+                    {
+                        nama: "2. Menengah (OOP Class)",
+                        kode: `<span style="color:#6a9955;">// OOP di C++: Membuat Template Karakter Game</span>
+<span style="color:#c586c0;">#include</span> <span style="color:#ce9178;">&lt;iostream&gt;</span>
+<span style="color:#569cd6;">using</span> <span style="color:#569cd6;">namespace</span> <span style="color:#4ec9b0;">std</span>;
+
+<span style="color:#569cd6;">class</span> <span style="color:#4ec9b0;">Pemain</span> {
+<span style="color:#569cd6;">public:</span>
+    <span style="color:#569cd6;">int</span> nyawa = <span style="color:#b5cea8;">100</span>;
+    <span style="color:#569cd6;">void</span> <span style="color:#dcdcaa;">terimaDamage</span>(<span style="color:#569cd6;">int</span> luka) {
+        nyawa -= luka;
+        <span style="color:#4ec9b0;">cout</span> << <span style="color:#ce9178;">"Diserang! Sisa HP: "</span> << nyawa << <span style="color:#4ec9b0;">endl</span>;
+    }
+};
+
+<span style="color:#569cd6;">int</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#4ec9b0;">Pemain</span> hero;
+    hero.<span style="color:#dcdcaa;">terimaDamage</span>(<span style="color:#b5cea8;">25</span>); <span style="color:#6a9955;">// Output: Diserang! Sisa HP: 75</span>
+    <span style="color:#c586c0;">return</span> <span style="color:#b5cea8;">0</span>;
+}`
+                    },
+                    {
+                        nama: "3. Lanjutan (Pointer Memori)",
+                        kode: `<span style="color:#6a9955;">// Kontrol Memori Langsung menggunakan Pointer (Fitur terkuat C++)</span>
+<span style="color:#c586c0;">#include</span> <span style="color:#ce9178;">&lt;iostream&gt;</span>
+<span style="color:#569cd6;">using</span> <span style="color:#569cd6;">namespace</span> <span style="color:#4ec9b0;">std</span>;
+
+<span style="color:#569cd6;">int</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#569cd6;">int</span> ammo = <span style="color:#b5cea8;">30</span>;
+    <span style="color:#569cd6;">int</span>* ptrAmmo = &ammo; <span style="color:#6a9955;">// Menyimpan ALAMAT memori dari variabel ammo</span>
+
+    <span style="color:#4ec9b0;">cout</span> << <span style="color:#ce9178;">"Jumlah Peluru  : "</span> << ammo << <span style="color:#4ec9b0;">endl</span>;
+    <span style="color:#4ec9b0;">cout</span> << <span style="color:#ce9178;">"Alamat RAM     : "</span> << ptrAmmo << <span style="color:#4ec9b0;">endl</span>;
+    
+    <span style="color:#6a9955;">// Mengubah nilai memori secara langsung</span>
+    *ptrAmmo = <span style="color:#b5cea8;">0</span>;
+    <span style="color:#4ec9b0;">cout</span> << <span style="color:#ce9178;">"Peluru Habis!  : "</span> << ammo << <span style="color:#4ec9b0;">endl</span>;
+
+    <span style="color:#c586c0;">return</span> <span style="color:#b5cea8;">0</span>;
+}`
+                    }
+                ],
+                links: [
+                    { teks: "W3Schools C++ Dasar", url: "https://www.w3schools.com/cpp/" },
+                    { teks: "LearnCpp - Panduan Lengkap", url: "https://www.learncpp.com/" },
+                    { teks: "Unreal Engine C++ Docs", url: "https://docs.unrealengine.com/" }
+                ]
+            },
+            cloud: { 
+                judul: "Go (Golang)", icon: "fas fa-cloud", 
+                penjelasan: "Dikembangkan oleh insinyur Google, Go diciptakan untuk menyelesaikan masalah komputasi modern. Sintaksnya sesederhana Python namun memiliki kecepatan eksekusi yang mendekati C++.", 
+                tujuan: "Sangat ideal untuk membangun Microservices, API Backend berskala raksasa, dan Cloud-Native Applications. (Docker dan Kubernetes sepenuhnya ditulis menggunakan Golang).",
+                saran: "<strong>DO:</strong> Gunakan untuk server Backend yang menangani trafik tinggi.<br><strong>DON'T:</strong> Kurang cocok digunakan untuk mendesain antarmuka (UI/Frontend) secara langsung.",
+                prospek: "Permintaan industri sedang meledak. Go menduduki peringkat atas bahasa dengan rata-rata gaji tertinggi secara global (Cloud Engineer).",
+                kodeList: [
+                    {
+                        nama: "1. Dasar (Fungsi)",
+                        kode: `<span style="color:#6a9955;">// Struktur dasar aplikasi Go dan pemanggilan Fungsi</span>
+<span style="color:#c586c0;">package</span> main
+
+<span style="color:#c586c0;">import</span> <span style="color:#ce9178;">"fmt"</span>
+
+<span style="color:#6a9955;">// Fungsi yang mengembalikan tipe data integer</span>
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">kalkulasiServer</span>(beban <span style="color:#4ec9b0;">int</span>) <span style="color:#4ec9b0;">int</span> {
+    <span style="color:#c586c0;">return</span> beban * <span style="color:#b5cea8;">2</span>
+}
+
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">main</span>() {
+    hasil := <span style="color:#dcdcaa;">kalkulasiServer</span>(<span style="color:#b5cea8;">50</span>)
+    fmt.<span style="color:#dcdcaa;">Printf</span>(<span style="color:#ce9178;">"Total Beban Server: %d ms\\n"</span>, hasil)
+}`
+                    },
+                    {
+                        nama: "2. Menengah (Goroutines)",
+                        kode: `<span style="color:#6a9955;">// Goroutine: Fitur ajaib Go untuk memproses tugas bersamaan dengan ringan</span>
+<span style="color:#c586c0;">package</span> main
+
+<span style="color:#c586c0;">import</span> (
+    <span style="color:#ce9178;">"fmt"</span>
+    <span style="color:#ce9178;">"time"</span>
+)
+
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">tarikData</span>(sumber <span style="color:#4ec9b0;">string</span>) {
+    fmt.<span style="color:#dcdcaa;">Println</span>(<span style="color:#ce9178;">"Menarik data dari:"</span>, sumber)
+    time.<span style="color:#dcdcaa;">Sleep</span>(time.Second)
+}
+
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#6a9955;">// Tambahkan kata 'go' untuk menjalankan di background (Asynchronous)</span>
+    <span style="color:#c586c0;">go</span> <span style="color:#dcdcaa;">tarikData</span>(<span style="color:#ce9178;">"Database Utama"</span>)
+    <span style="color:#c586c0;">go</span> <span style="color:#dcdcaa;">tarikData</span>(<span style="color:#ce9178;">"API Eksternal"</span>)
+    
+    <span style="color:#6a9955;">// Tunggu sebentar agar Goroutine selesai</span>
+    time.<span style="color:#dcdcaa;">Sleep</span>(time.Second * <span style="color:#b5cea8;">2</span>)
+    fmt.<span style="color:#dcdcaa;">Println</span>(<span style="color:#ce9178;">"Semua sistem siap!"</span>)
+}`
+                    },
+                    {
+                        nama: "3. Lanjutan (Channels)",
+                        kode: `<span style="color:#6a9955;">// Channels: Cara aman menghubungkan dan mengirim data antar Goroutine</span>
+<span style="color:#c586c0;">package</span> main
+<span style="color:#c586c0;">import</span> <span style="color:#ce9178;">"fmt"</span>
+
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#6a9955;">// Membuat saluran (channel) bertipe string</span>
+    pesanChannel := <span style="color:#dcdcaa;">make</span>(<span style="color:#569cd6;">chan</span> <span style="color:#4ec9b0;">string</span>)
+
+    <span style="color:#6a9955;">// Task A: Mengirim data KE DALAM channel</span>
+    <span style="color:#c586c0;">go</span> <span style="color:#569cd6;">func</span>() {
+        pesanChannel <- <span style="color:#ce9178;">"File berhasil diunggah ke Cloud!"</span>
+    }()
+
+    <span style="color:#6a9955;">// Task B: Menunggu dan menarik data DARI channel</span>
+    status := <-pesanChannel
+    fmt.<span style="color:#dcdcaa;">Println</span>(<span style="color:#ce9178;">"Pemberitahuan:"</span>, status)
+}`
+                    }
+                ],
+                links: [
+                    { teks: "Tur Bahasa Go (Resmi)", url: "https://go.dev/tour/welcome/1" },
+                    { teks: "Go by Example", url: "https://gobyexample.com/" }
+                ]
+            },
+            ios: { 
+                judul: "Swift", icon: "fab fa-apple", 
+                penjelasan: "Swift adalah bahasa pemrograman modern, aman, dan interaktif yang diciptakan oleh Apple. Menggantikan Objective-C dengan sintaks yang bersih dan minim error.", 
+                tujuan: "Fokus sepenuhnya untuk ekosistem Apple: mengembangkan aplikasi mutakhir untuk iOS (iPhone), iPadOS, macOS, watchOS, dan tvOS.",
+                saran: "<strong>DO:</strong> Pilihan mutlak jika target pasar Anda adalah pengguna iPhone premium.<br><strong>DON'T:</strong> Jangan belajar Swift jika Anda ingin membuat aplikasi untuk Android (Gunakan Kotlin/Flutter).",
+                prospek: "Pasar kerja iOS Developer selalu eksklusif. Perusahaan tech berskala besar membutuhkan engineer Swift khusus untuk menjaga kualitas aplikasi iOS yang menyumbang pendapatan tinggi.",
+                kodeList: [
+                    {
+                        nama: "1. Dasar (Sintaks Modern)",
+                        kode: `<span style="color:#6a9955;">// Swift dirancang bersih tanpa titik-koma (;) wajib</span>
+<span style="color:#c586c0;">import</span> <span style="color:#4ec9b0;">Foundation</span>
+
+<span style="color:#6a9955;">// Deklarasi variabel yang aman</span>
+<span style="color:#569cd6;">let</span> osTarget = <span style="color:#ce9178;">"iOS 17"</span>
+<span style="color:#569cd6;">var</span> statusApp = <span style="color:#ce9178;">"Sedang dimuat..."</span>
+
+<span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">sapaPengguna</span>(nama: <span style="color:#4ec9b0;">String</span>) {
+    <span style="color:#6a9955;">// String Interpolation (menyisipkan variabel)</span>
+    <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">"Selamat datang </span>\\(nama)<span style="color:#ce9178;"> di sistem </span>\\(osTarget)<span style="color:#ce9178;">"</span>)
+}
+
+<span style="color:#dcdcaa;">sapaPengguna</span>(nama: <span style="color:#ce9178;">"Developer Apple"</span>)`
+                    },
+                    {
+                        nama: "2. Menengah (SwiftUI Visual)",
+                        kode: `<span style="color:#6a9955;">// SwiftUI: Menggambar Antarmuka Pengguna (UI) dengan sangat mudah</span>
+<span style="color:#c586c0;">import</span> <span style="color:#4ec9b0;">SwiftUI</span>
+
+<span style="color:#569cd6;">struct</span> <span style="color:#4ec9b0;">ContentView</span>: <span style="color:#4ec9b0;">View</span> {
+    <span style="color:#569cd6;">var</span> body: <span style="color:#569cd6;">some</span> <span style="color:#4ec9b0;">View</span> {
+        <span style="color:#4ec9b0;">VStack</span> {
+            <span style="color:#6a9955;">// Ikon Bawaan Sistem Apple (SF Symbols)</span>
+            <span style="color:#4ec9b0;">Image</span>(systemName: <span style="color:#ce9178;">"applelogo"</span>)
+                .<span style="color:#dcdcaa;">imageScale</span>(.large)
+                .<span style="color:#dcdcaa;">foregroundColor</span>(.blue)
+            
+            <span style="color:#4ec9b0;">Text</span>(<span style="color:#ce9178;">"Dashboard Premium"</span>)
+                .<span style="color:#dcdcaa;">font</span>(.title)
+                .<span style="color:#dcdcaa;">bold</span>()
+        }
+        .<span style="color:#dcdcaa;">padding</span>()
+    }
+}`
+                    },
+                    {
+                        nama: "3. Lanjutan (Struct & Data)",
+                        kode: `<span style="color:#6a9955;">// Mengelola Data Terstruktur yang bisa di-format ke JSON (Codable)</span>
+<span style="color:#c586c0;">import</span> <span style="color:#4ec9b0;">Foundation</span>
+
+<span style="color:#6a9955;">// Struct di Swift sangat powerful dan digunakan sebagai standar</span>
+<span style="color:#569cd6;">struct</span> <span style="color:#4ec9b0;">ProdukApple</span>: <span style="color:#4ec9b0;">Codable</span> {
+    <span style="color:#569cd6;">var</span> nama: <span style="color:#4ec9b0;">String</span>
+    <span style="color:#569cd6;">var</span> harga: <span style="color:#4ec9b0;">Double</span>
+    
+    <span style="color:#569cd6;">func</span> <span style="color:#dcdcaa;">deskripsi</span>() {
+        <span style="color:#dcdcaa;">print</span>(<span style="color:#ce9178;">"</span>\\(nama)<span style="color:#ce9178;"> dijual seharga $</span>\\(harga)<span style="color:#ce9178;">"</span>)
+    }
+}
+
+<span style="color:#569cd6;">let</span> deviceBaru = <span style="color:#4ec9b0;">ProdukApple</span>(nama: <span style="color:#ce9178;">"iPhone 16 Pro"</span>, harga: <span style="color:#b5cea8;">999.0</span>)
+deviceBaru.<span style="color:#dcdcaa;">deskripsi</span>()`
+                    }
+                ],
+                links: [
+                    { teks: "SwiftUI Tutorials (Apple Developer)", url: "https://developer.apple.com/tutorials/swiftui" },
+                    { teks: "Hacking with Swift (100 Days)", url: "https://www.hackingwithswift.com/100/swiftui" }
+                ]
+            },
+            aman: { 
+                judul: "Rust", icon: "fas fa-shield-alt", 
+                penjelasan: "Rust berturut-turut dinobatkan sebagai 'Bahasa Paling Dicintai'. Menyelesaikan masalah terbesar C++ (kebocoran memori) dengan sistem 'Ownership'. Bahasa secepat C++, namun 100% aman dari crash memori.", 
+                tujuan: "Digunakan untuk WebAssembly, Blockchain (Smart Contracts/Web3), Sistem Operasi (Linux Kernel), dan CLI Tools berkecepatan ekstrim.",
+                saran: "<strong>DO:</strong> Gunakan pada infrastruktur kritis yang tidak boleh crash sama sekali.<br><strong>DON'T:</strong> Jangan digunakan untuk prototype aplikasi cepat, karena sistem keamanan Rust (Borrow Checker) sangat ketat.",
+                prospek: "Merupakan 'Next Big Thing'. Raksasa seperti Microsoft dan Meta mulai mengadopsi Rust secara masif. Menjadi Rust Developer akan menempatkan Anda di jajaran elit Systems Programmer.",
+                kodeList: [
+                    {
+                        nama: "1. Dasar (Pattern Matching)",
+                        kode: `<span style="color:#6a9955;">// Pattern Matching: Alternatif dari if-else yang sangat presisi</span>
+<span style="color:#569cd6;">fn</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#569cd6;">let</span> status_server = <span style="color:#b5cea8;">404</span>;
+
+    <span style="color:#6a9955;">// 'match' memaksa Anda menangani SEMUA kemungkinan nilai</span>
+    <span style="color:#c586c0;">match</span> status_server {
+        <span style="color:#b5cea8;">200</span> => <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Koneksi Berhasil."</span>),
+        <span style="color:#b5cea8;">404</span> => <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Data tidak ditemukan."</span>),
+        <span style="color:#b5cea8;">500</span> => <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Sistem Crash!"</span>),
+        _ => <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Status tidak dikenali."</span>), <span style="color:#6a9955;">// Penutup Default</span>
+    }
+}`
+                    },
+                    {
+                        nama: "2. Menengah (Ownership & Borrowing)",
+                        kode: `<span style="color:#6a9955;">// Rahasia Keamanan Rust: Meminjam (Borrowing) Data Tanpa Resiko</span>
+<span style="color:#569cd6;">fn</span> <span style="color:#dcdcaa;">main</span>() {
+    <span style="color:#569cd6;">let</span> data_penting = <span style="color:#4ec9b0;">String</span>::<span style="color:#dcdcaa;">from</span>(<span style="color:#ce9178;">"Rahasia Sistem"</span>);
+    
+    <span style="color:#6a9955;">// Kirim REFERENSI (&), bukan datanya, agar memori tetap aman</span>
+    <span style="color:#dcdcaa;">cek_keamanan</span>(&data_penting);
+    
+    <span style="color:#6a9955;">// Berbeda dari C++, kode ini dijamin tidak akan Memory Leak</span>
+    <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Sistem [{}] beroperasi dengan stabil."</span>, data_penting);
+}
+
+<span style="color:#569cd6;">fn</span> <span style="color:#dcdcaa;">cek_keamanan</span>(data: &<span style="color:#4ec9b0;">String</span>) {
+    <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Proses verifikasi: {}"</span>, data);
+}`
+                    },
+                    {
+                        nama: "3. Lanjutan (Error Handling Aman)",
+                        kode: `<span style="color:#6a9955;">// Rust tidak memakai sistem Try-Catch. Rust memaksa validasi Error!</span>
+<span style="color:#569cd6;">use</span> std::fs::File;
+
+<span style="color:#569cd6;">fn</span> <span style="color:#dcdcaa;">buka_file_kritis</span>() {
+    <span style="color:#6a9955;">// Hasilnya adalah tipe enum: Ok(IsiFile) atau Err(PesanError)</span>
+    <span style="color:#569cd6;">let</span> hasil_buka = File::<span style="color:#dcdcaa;">open</span>(<span style="color:#ce9178;">"data_rahasia.txt"</span>);
+
+    <span style="color:#c586c0;">match</span> hasil_buka {
+        <span style="color:#4ec9b0;">Ok</span>(file) => <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"File berhasil dibaca, ukuran aman."</span>),
+        <span style="color:#4ec9b0;">Err</span>(error) => {
+            <span style="color:#6a9955;">// Aplikasi tidak akan crash, melainkan ditangani rapi</span>
+            <span style="color:#dcdcaa;">println!</span>(<span style="color:#ce9178;">"Gagal membuka file: {:?}"</span>, error);
+        }
+    }
+}`
+                    }
+                ],
+                links: [
+                    { teks: "The Rust Programming Language (Book)", url: "https://doc.rust-lang.org/book/" },
+                    { teks: "Rust by Example", url: "https://doc.rust-lang.org/rust-by-example/" }
+                ]
+            }
+        };
+
+        let currentResultKey = ""; // Menyimpan status bahasa apa yang sedang tampil
+
+        function mulaiAnalisisAI() {
+            const j1 = document.getElementById("jawaban1").value;
+            const j2 = document.getElementById("jawaban2").value;
+            if (!j2) { document.getElementById("error-step-2").style.display = "block"; return; }
+            
+            document.getElementById("step-2").classList.remove("active");
+            document.getElementById("loading-state").style.display = "block";
+
+            setTimeout(() => {
+                document.getElementById("loading-state").style.display = "none";
+                tampilkanHasil(j1); 
+            }, 1800);
+        }
+
+        function tampilkanHasil(kunci) {
+            currentResultKey = kunci;
+            const hasil = dataKuis[kunci];
+
+            // Render Tab Info
+            document.getElementById("result-title").innerHTML = `<i class="${hasil.icon}" style="color:#007bff;"></i> ${hasil.judul}`;
+            document.getElementById("isi-penjelasan").innerHTML = hasil.penjelasan;
+            document.getElementById("isi-tujuan").innerHTML = hasil.tujuan;
+            document.getElementById("isi-saran").innerHTML = hasil.saran;
+            document.getElementById("isi-prospek").innerHTML = hasil.prospek;
+            
+            // Render Variasi Kode Awal (Dasar) & Tombol Pilihan
+            let btnKodeHtml = "";
+            hasil.kodeList.forEach((varian, index) => {
+                let aktifClass = (index === 0) ? "active" : "";
+                btnKodeHtml += `<button class="btn-kode-var ${aktifClass}" onclick="gantiVariasiKode(${index}, this)">${varian.nama}</button>`;
+            });
+            document.getElementById("kode-buttons-area").innerHTML = btnKodeHtml;
+            document.getElementById("isi-kode").innerHTML = hasil.kodeList[0].kode; // Set default kode index 0
+            
+            // Render Links
+            let htmlLink = "";
+            hasil.links.forEach(l => {
+                htmlLink += `<li><a href="${l.url}" target="_blank"><i class="fas fa-external-link-alt"></i> ${l.teks}</a></li>`;
+            });
+            document.getElementById("isi-link").innerHTML = htmlLink;
+            
+            // Buka tab penjelasan by default
+            bukaTab({currentTarget: document.querySelector('.tab-btn.active')}, 'tab-penjelasan');
+
+            document.getElementById("result-container").style.display = "block";
+            document.getElementById("result-container").scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Fungsi baru untuk mengganti kode (Dasar/Menengah/Lanjutan)
+        function gantiVariasiKode(indexKode, btnElement) {
+            // Hilangkan class active dari semua tombol variasi
+            const semuaTombol = document.querySelectorAll(".btn-kode-var");
+            semuaTombol.forEach(btn => btn.classList.remove("active"));
+            
+            // Tambahkan active ke tombol yang diklik
+            btnElement.classList.add("active");
+            
+            // Ubah isi kode
+            const hasil = dataKuis[currentResultKey];
+            document.getElementById("isi-kode").innerHTML = hasil.kodeList[indexKode].kode;
+        }
+
+        function bukaTab(evt, namaTab) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) tabContents[i].classList.remove("active");
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) tabBtns[i].classList.remove("active");
+            
+            document.getElementById(namaTab).classList.add("active");
+            if(evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            } else {
+                document.querySelector(`.tab-btn[onclick*="${namaTab}"]`).classList.add("active");
+            }
+        }
+
+        function salinHasil() {
+            const bahasa = document.getElementById("result-title").innerText;
+            navigator.clipboard.writeText(`Laporan Sistem: Prospek karir saya paling cocok menguasai ${bahasa}! Cek website AI Konsultan Coding ini untuk melihat laporanmu.`);
+            const copyBtn = document.querySelector(".btn-copy");
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+            copyBtn.style.background = "#1e7e34";
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fas fa-share-nodes"></i> Bagikan';
+                copyBtn.style.background = "#28a745";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
